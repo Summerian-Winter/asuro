@@ -41,7 +41,7 @@ void remove_timer(timer_entry *timer) {
 	timer->func = NULL;
 }
 
-ISR(TIMER0_OVF_vect) {
+ISR(TIMER0_OVF_vect, ISR_NOBLOCK) {
 	for (int i = 0; i < MAX_TIMERS; i++) {
 		if (timers[i].func && ++timers[i].current == timers[i].duration) {
 			timers[i].func(timers[i].data);
