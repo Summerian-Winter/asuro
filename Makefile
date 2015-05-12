@@ -46,7 +46,7 @@ LIBPATH = ../asuro-lib/lib
 INCPATH = $(LIBPATH)/inc
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c
+SRC = $(TARGET).c TimerService.c
 
 # If there is more than one source file, append them above, or adjust and
 # uncomment the following:
@@ -81,10 +81,13 @@ ASRC =
 #  -Wa,...:   tell GCC to pass this to the assembler.
 #    -ahlms:  create assembler listing
 CFLAGS = -g -O$(OPT) -I$(INCPATH) \
+	 -std=c11 \
 	-funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
 	-ffunction-sections -fdata-sections \
-	-Wall -Wstrict-prototypes \
+	-Wall \
 	-Wa,-ahlms=$(<:.c=.lst)
+
+#CFLAGS += -Wstrict-prototypes
 
 # Virtual path for Source Files
 VPATH = $(LIBPATH)
