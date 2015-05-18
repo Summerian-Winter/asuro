@@ -10,8 +10,8 @@ struct _timer_entry {
 	void *data;
 };
 
-timer_entry timers[MAX_TIMERS];
-bool did_init;
+volatile timer_entry timers[MAX_TIMERS];
+volatile bool did_init;
 
 void init_timer() {
 	TCCR0 = 0b011;
