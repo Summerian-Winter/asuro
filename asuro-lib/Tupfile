@@ -1,0 +1,7 @@
+include_rules
+
+CFLAGS += @../CFLAGS
+CFLAGS += -Iinc
+
+: foreach *.c |> !cc |> {objs}
+: {objs} |> ar crs %o %f |> libasuro.a

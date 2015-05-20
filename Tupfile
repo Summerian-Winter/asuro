@@ -1,0 +1,14 @@
+include_rules
+
+CFLAGS += @CFLAGS
+CFLAGS += -Iasuro-lib/inc
+
+LDFLAGS += -Lasuro-lib -lasuro
+
+: foreach *.c |> !cc |>
+
+: main.o | asuro-lib/libasuro.a |> !ld |>
+: timer_test.o TimerService.o | asuro-lib/libasuro.a |> !ld |> timer_test.elf
+: odometrie_messreihe.o TimerService.o | asuro-lib/libasuro.a |> !ld |> odometrie_messreihe.elf
+
+: foreach *.elf |> $(OBJCOPY) -O ihex -R .eeprom %f %o |> %B.hex

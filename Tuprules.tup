@@ -1,0 +1,14 @@
+MCU = atmega8
+F_CPU = 8000000UL
+
+CFLAGS += -mmcu=$(MCU) -DF_CPU=$(F_CPU)
+
+LDFLAGS += -lm
+
+DIRAVR = $(TUP_CWD)/../avr8-gnu-toolchain
+DIRAVRBIN = $(DIRAVR)/bin
+CC = $(DIRAVRBIN)/avr-gcc
+OBJCOPY = $(DIRAVRBIN)/avr-objcopy
+
+!cc = |> $(CC) $(CFLAGS) -c %f -o %o |> %B.o
+!ld = |> $(CC) %f -o %o $(LDFLAGS) |> %B.elf

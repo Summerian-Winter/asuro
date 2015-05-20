@@ -1,0 +1,5 @@
+-g -Os
+-std=c11
+-funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+-ffunction-sections -fdata-sections
+-Wall
