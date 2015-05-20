@@ -1,8 +1,5 @@
+/.tup
 *.o
-*.d
 *.hex
-*.eep
 *.elf
-*.lst
-*.lss
-*.map
+*.a
