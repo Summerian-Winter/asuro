@@ -11,4 +11,4 @@ CC = $(DIRAVRBIN)/avr-gcc
 OBJCOPY = $(DIRAVRBIN)/avr-objcopy
 
 !cc = |> $(CC) $(CFLAGS) -c %f -o %o |> %B.o
-!ld = |> $(CC) %f -o %o $(LDFLAGS) |> %B.elf
+!ld = |> $(CC) $(CFLAGS) %f -o %o $(LDFLAGS) |> %B.elf
