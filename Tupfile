@@ -11,6 +11,7 @@ LDFLAGS += -Lasuro-lib -lasuro
 : timer_test.o TimerService.o | asuro-lib/libasuro.a |> !ld |> timer_test.elf
 : odometrie_messreihe.o TimerService.o | asuro-lib/libasuro.a |> !ld |> odometrie_messreihe.elf
 : quadratfahrt.o | asuro-lib/libasuro.a |> !ld |>
+: determine_enc_count.o TimerService.o | asuro-lib/libasuro.a |> !ld |> determine_enc_count.elf
 : lichtsucher.o | asuro-lib/libasuro.a |> !ld |>
 
 : foreach *.elf |> $(OBJCOPY) -O ihex -R .eeprom %f %o |> %B.hex
