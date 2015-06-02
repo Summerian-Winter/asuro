@@ -12,7 +12,7 @@ int main (void) {
 		LineData(data);
 		SetMotorPower(
 				brightness_to_speed(data[0]),
-				brightness_to_speed(data[0]));
+				brightness_to_speed(data[1]));
 	}
 }
 
