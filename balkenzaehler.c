@@ -16,7 +16,7 @@ static int next_brightness(int brightness) {
 	if (white < 0) {
 		// Assume we start on white ground.
 		// We have to throw away a few values at the start.
-		if (++white == 0) white = brightness;
+		if (brightness != 0 && ++white == 0) white = brightness;
 		return 0;
 	}
 	int diff = white - brightness, bar = 0;
