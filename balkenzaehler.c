@@ -42,15 +42,12 @@ int main() {
 	/* SetMotorPower(60, 60); */
 	int bars = 0;
 	while(1) {
+		Msleep(20);
 		LineData(data);
 		if (next_brightness((data[0] + data[1]) / 2)) {
 			SerPrint("------- ");
 			PrintInt(++bars);
 			SerPrint("\n");
-			if (bars > 3) {
-				SetMotorPower(0, 0);
-				break;
-			}
 		}
 	}
 	return 0;
