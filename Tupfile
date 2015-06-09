@@ -15,5 +15,6 @@ LDFLAGS += -Lasuro-lib -lasuro
 : lichtsucher.o | asuro-lib/libasuro.a |> !ld |>
 : collision_avoider.o | asuro-lib/libasuro.a |> !ld |>
 : subsumption.o | asuro-lib/libasuro.a |> !ld |>
+: balkenzaehler.o | asuro-lib/libasuro.a |> !ld |>
 
 : foreach *.elf |> $(OBJCOPY) -O ihex -R .eeprom %f %o |> %B.hex
