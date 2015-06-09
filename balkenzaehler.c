@@ -39,7 +39,7 @@ int main() {
 	unsigned int data[2];
 	Init();
 	FrontLED(ON);
-	/* SetMotorPower(60, 60); */
+	SetMotorPower(50, 50);
 	int bars = 0;
 	while(1) {
 		Msleep(20);
