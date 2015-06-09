@@ -1,37 +1,51 @@
 #include <math.h>
 #include "asuro.h"
+#include "print_tsv.h"
 
 #define THRESHOLD 200
 
-static int bars = 0;
+enum {
+	WHITE,
+	BLACK,
+};
 
 // brightness: 0..1023
 static int next_brightness(int brightness) {
-	static int prev = 0, change = 0;
-	static char dir = 0;
-	if (dir == 0) goto out;
-	if (abs(prev - brightness) < THRESHOLD) goto out;
-	char next_dir = prev < brightness ? 1 : -1;
-	if (next_dir != dir) {
-		bars++;
-		dir = next_dir;
-		change = 1;
+	static int white = -5, state = WHITE;
+
+	if (white < 0) {
+		// Assume we start on white ground.
+		// We have to throw away a few values at the start.
+		if (++white == 0) white = brightness;
+		return 0;
 	}
-out:
-	prev = brightness;
-	return change;
+	int diff = white - brightness, bar = 0;
+	if (diff < THRESHOLD) {
+		// Currently on white ground.
+		white = (9*white + brightness) / 10;
+		if (state == BLACK) {
+			// We just left a black bar.
+			bar = 1;
+		}
+		state = WHITE;
+	} else {
+		state = BLACK;
+	}
+	/* print_tsv(3, brightness, white, state); */
+	return bar;
 }
 
 int main() {
 	unsigned int data[2];
 	Init();
 	FrontLED(ON);
-	SetMotorPower(60, 60);
+	/* SetMotorPower(60, 60); */
+	int bars = 0;
 	while(1) {
 		LineData(data);
 		if (next_brightness((data[0] + data[1]) / 2)) {
 			SerPrint("------- ");
-			PrintInt(bars);
+			PrintInt(++bars);
 			SerPrint("\n");
 			if (bars > 3) {
 				SetMotorPower(0, 0);
