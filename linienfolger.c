@@ -3,7 +3,8 @@
 #include "asuro.h"
 
 // Number of ~20ms ticks for turning 90deg.
-#define TICKS_FOR_90_DEG 20
+#define TICKS_FOR_90_DEG 23
+#define TICKS_FOR_180_DEG 35
 // Maximum brightness distance for colors assumed to be equal.
 #define SAME_COLOR_THRESHOLD 100
 // Absolute threshold for black/white.
@@ -20,12 +21,35 @@ static bool on_black() {
 	return data[0] < BLACK_THRESHOLD || data[1] < BLACK_THRESHOLD;
 }
 
+// Search for a line somewhere in front of Asuro.
 static void search_line() {
-	SetMotorPower(-BASE_SPEED, BASE_SPEED);
-	while (1) {
-		Msleep(20);
-		if (on_black()) return;
+	int ticks;
+
+#define TICKS_LOOP \
+	while (ticks--) { \
+		if (on_black()) return; \
+		Msleep(20); \
 	}
+
+	while (1) {
+		// Look on the left.
+		SetMotorPower(-BASE_SPEED, BASE_SPEED);
+		ticks = TICKS_FOR_90_DEG;
+		TICKS_LOOP;
+		// Look on the right.
+		SetMotorPower(BASE_SPEED, -BASE_SPEED);
+		ticks = TICKS_FOR_180_DEG;
+		TICKS_LOOP;
+		// Go back.
+		SetMotorPower(-BASE_SPEED, BASE_SPEED);
+		ticks = TICKS_FOR_90_DEG;
+		TICKS_LOOP;
+		// Go straight.
+		SetMotorPower(BASE_SPEED, BASE_SPEED);
+		ticks = 20;
+		TICKS_LOOP;
+	}
+#undef TICKS_LOOP
 }
 
 // brightness: 0..1023
@@ -68,7 +92,7 @@ static bool check_line_end() {
 		Msleep(20);
 	}
 	SetMotorPower(BASE_SPEED, -BASE_SPEED);
-	ticks = 2 * TICKS_FOR_90_DEG;
+	ticks = TICKS_FOR_180_DEG;
 	while (ticks--) {
 		if (on_black()) return false;
 		Msleep(20);
