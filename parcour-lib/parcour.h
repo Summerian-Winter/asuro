@@ -13,3 +13,5 @@ void search_line();
 void follow_line();
 bool check_line_end();
 
+// Bar counting
+int count_bar();
