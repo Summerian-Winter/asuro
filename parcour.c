@@ -29,7 +29,7 @@ int main (void) {
 				break;
 			}
 			if (check_line_end())
-				state = FOLLOW_WALL;
+				state = COUNT_BARS;
 			else
 				state = FOLLOW_LINE;
 			break;
@@ -44,6 +44,7 @@ int main (void) {
 			Msleep(100);
 			break;
 		case COUNT_BARS:
+			SetMotorPower(BASE_SPEED, BASE_SPEED);
 			if (count_bar()) {
 				// Stop after three bars.
 				if (++bars == 3)
