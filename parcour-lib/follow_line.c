@@ -19,6 +19,8 @@ static bool on_black() {
 	return data[0] < BLACK_THRESHOLD || data[1] < BLACK_THRESHOLD;
 }
 
+bool is_on_line() { return on_black(); }
+
 // Search for a line somewhere in front of Asuro.
 void search_line() {
 	int ticks;
