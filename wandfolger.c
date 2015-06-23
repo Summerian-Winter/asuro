@@ -2,10 +2,10 @@
 
 #define BASE_SPEED 35
 
-enum { DIR_Left, DIR_Right };
-enum { HIT_WALL, NO_WALL };
+enum dir { DIR_Left, DIR_Right };
+enum follow_result { HIT_WALL, NO_WALL };
 
-static int follow_wall(int dir) {
+static enum follow_result follow_wall(enum dir dir) {
 	uint8_t t1, t2;
 	t1 = PollSwitch(); Msleep(10); t2 = PollSwitch();
 	// Ignore K6 while driving.
