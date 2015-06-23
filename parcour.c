@@ -5,11 +5,13 @@ enum state {
 	SEARCH_LINE,
 	FOLLOW_LINE,
 	FOLLOW_WALL,
-	/* COUNT_BARS, */
+	COUNT_BARS,
+	STOP
 };
 
 int main (void) {
 	enum state state = SEARCH_LINE;
+	int bars = 0;
 	Init();
 	FrontLED(ON);
 	SetMotorPower(BASE_SPEED, BASE_SPEED);
@@ -41,6 +43,20 @@ int main (void) {
 			SetMotorPower(BASE_SPEED, BASE_SPEED);
 			Msleep(100);
 			break;
+		case COUNT_BARS:
+			if (count_bar()) {
+				// Stop after three bars.
+				if (++bars == 3)
+					state = STOP;
+			}
+			break;
+		case STOP:
+			while (1) {
+				BackLED(ON, ON);
+				Msleep(100);
+				BackLED(OFF, OFF);
+				Msleep(100);
+			}
 		}
 	}
 }
