@@ -17,5 +17,6 @@ LDFLAGS += -Lasuro-lib -lasuro
 : subsumption.o | asuro-lib/libasuro.a |> !ld |>
 : balkenzaehler.o | asuro-lib/libasuro.a |> !ld |>
 : linienfolger.o | asuro-lib/libasuro.a |> !ld |>
+: wandfolger.o | asuro-lib/libasuro.a |> !ld |>
 
 : foreach *.elf |> $(OBJCOPY) -O ihex -R .eeprom %f %o |> %B.hex
