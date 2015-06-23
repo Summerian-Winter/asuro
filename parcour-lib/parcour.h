@@ -11,7 +11,7 @@ enum follow_result follow_wall(enum dir dir);
 // Line following
 bool is_on_line();
 void search_line();
-void follow_line();
+bool follow_line();
 bool check_line_end();
 
 // Bar counting

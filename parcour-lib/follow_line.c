@@ -66,21 +66,22 @@ static int brightness_to_speed_diff(int left, int right) {
 		return BASE_SPEED;
 }
 
-void follow_line() {
+// Returns true when the line is lost.
+bool follow_line() {
 	unsigned int data[2];
 	const int base_speed = BASE_SPEED;
 	int diff;
-	while(1) {
-		Msleep(20);
-		LineData(data);
-		diff = brightness_to_speed_diff(data[0], data[1]);
-		if (diff)
-			SetMotorPower(+diff, -diff);
-		else
-			SetMotorPower(base_speed, base_speed);
 
-		if (!on_black()) return;
-	}
+	Msleep(20);
+	LineData(data);
+	diff = brightness_to_speed_diff(data[0], data[1]);
+	if (diff)
+		SetMotorPower(+diff, -diff);
+	else
+		SetMotorPower(base_speed, base_speed);
+
+	if (!on_black()) return true;
+	return false;
 }
 
 bool check_line_end() {

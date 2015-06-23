@@ -19,9 +19,13 @@ int main (void) {
 			search_line();
 			state = FOLLOW_LINE;
 		case FOLLOW_LINE:
-			follow_line();
+			if (!follow_line()) {
+				break;
+			}
 			if (check_line_end())
 				state = FOLLOW_WALL;
+			else
+				state = FOLLOW_LINE;
 			break;
 		case FOLLOW_WALL:
 			if (follow_wall(DIR_Right) == NO_WALL) {
