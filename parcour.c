@@ -20,6 +20,10 @@ int main (void) {
 			state = FOLLOW_LINE;
 		case FOLLOW_LINE:
 			if (!follow_line()) {
+				if (has_hit_wall())
+					state = FOLLOW_WALL;
+				else
+					Msleep(10);
 				break;
 			}
 			if (check_line_end())

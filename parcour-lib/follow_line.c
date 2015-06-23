@@ -72,7 +72,6 @@ bool follow_line() {
 	const int base_speed = BASE_SPEED;
 	int diff;
 
-	Msleep(20);
 	LineData(data);
 	diff = brightness_to_speed_diff(data[0], data[1]);
 	if (diff)

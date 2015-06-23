@@ -7,7 +7,8 @@ int main() {
 
 	search_line();
 	do {
-		while (!follow_line());
+		while (!follow_line())
+			Msleep(20);
 	} while (!check_line_end());
 
 	SetMotorPower(0, 0);
