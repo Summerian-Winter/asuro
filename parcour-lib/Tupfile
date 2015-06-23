@@ -1,0 +1,7 @@
+include_rules
+
+CFLAGS += @../CFLAGS
+CFLAGS += -I../asuro-lib/inc
+
+: foreach *.c |> !cc |> {objs}
+: {objs} |> ar crs %o %f |> libparcour.a

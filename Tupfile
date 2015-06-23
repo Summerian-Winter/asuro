@@ -17,6 +17,10 @@ LDFLAGS += -Lasuro-lib -lasuro
 : subsumption.o | asuro-lib/libasuro.a |> !ld |>
 : balkenzaehler.o | asuro-lib/libasuro.a |> !ld |>
 : linienfolger.o | asuro-lib/libasuro.a |> !ld |>
-: wandfolger.o | asuro-lib/libasuro.a |> !ld |>
+
+# This needs to be included before libasuro.a because of dead code
+# elimination.
+LDPREFLAGS += -Lparcour-lib -lparcour
+: wandfolger.o | parcour-lib/libparcour.a asuro-lib/libasuro.a |> !ld |>
 
 : foreach *.elf |> $(OBJCOPY) -O ihex -R .eeprom %f %o |> %B.hex
