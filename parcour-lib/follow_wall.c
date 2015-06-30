@@ -9,15 +9,23 @@ bool has_hit_wall() {
 }
 
 enum follow_result follow_wall(enum dir dir) {
-	if (has_hit_wall()) {
-		// We hit a wall. Continue in direction `dir`.
+	if (switched && has_hit_wall()) {
+		switched = false;
+		// We hit a wall. First, reverse.
+		SetMotorPower(-BASE_SPEED * 2, -BASE_SPEED * 2);
+		Msleep(100);
+		// Continue in direction `dir`.
 		if (dir == DIR_Left)
-			SetMotorPower(-BASE_SPEED * 2, -BASE_SPEED);
+			SetMotorPower(-BASE_SPEED * 3 / 2, BASE_SPEED * 3 / 2);
 		else if (dir == DIR_Right)
-			SetMotorPower(-BASE_SPEED, -BASE_SPEED * 2);
+			SetMotorPower(BASE_SPEED * 3 / 2, -BASE_SPEED * 3 / 2);
 
-		Msleep(200);
+		Msleep(180);
 		return HIT_WALL;
 	}
+	if (dir == DIR_Left)
+		SetMotorPower(BASE_SPEED * 4 / 3, BASE_SPEED);
+	else if (dir == DIR_Right)
+		SetMotorPower(BASE_SPEED, BASE_SPEED * 3 / 2);
 	return NO_WALL;
 }

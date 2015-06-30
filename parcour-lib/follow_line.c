@@ -2,13 +2,16 @@
 #include "asuro.h"
 #include "parcour.h"
 
+#undef BASE_SPEED
+#define BASE_SPEED 50
+#define CORRECTION_SPEED 40
 // Number of ~20ms ticks for turning 90deg.
 #define TICKS_FOR_90_DEG 23
 #define TICKS_FOR_180_DEG 35
 // Maximum brightness distance for colors assumed to be equal.
 #define SAME_COLOR_THRESHOLD 100
 // Absolute threshold for black/white.
-#define BLACK_THRESHOLD 500
+#define BLACK_THRESHOLD 400
 
 // Returns true if at least one sensor is on black.
 static bool on_black() {
@@ -61,9 +64,9 @@ static int brightness_to_speed_diff(int left, int right) {
 		return 0;
 	// More light on the right -> correct to the left.
 	if (left < right)
-		return -BASE_SPEED;
+		return -CORRECTION_SPEED;
 	else // More light on the left.
-		return BASE_SPEED;
+		return CORRECTION_SPEED;
 }
 
 // Returns true when the line is lost.

@@ -1,7 +1,7 @@
 #pragma once
 #include <stdbool.h>
 
-#define BASE_SPEED 35
+#define BASE_SPEED 40
 
 // Wall following
 enum dir { DIR_Left, DIR_Right };
