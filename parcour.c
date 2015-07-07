@@ -14,7 +14,7 @@ enum state {
 
 int main (void) {
 	enum state state = START_FOLLOW_LINE;
-	int bars = 0, hits = 0;
+	int bars = 0;
 	Init();
 	StartSwitch();
 	FrontLED(ON);
